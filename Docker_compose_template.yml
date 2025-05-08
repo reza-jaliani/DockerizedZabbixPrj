@@ -1,0 +1,38 @@
+version: "3.5"
+
+services:
+  postgres:
+    image: postgres:15
+    environment:
+      POSTGRES_USER: zabbix
+      POSTGRES_PASSWORD: zabbixpass
+      POSTGRES_DB: zabbixdb
+    volumes:
+      - pg_data:/var/lib/postgresql/data
+
+  zabbix-server:
+    image: zabbix/zabbix-server-pgsql:alpine-6.0-latest
+    environment:
+      DB_SERVER_HOST: postgres
+      POSTGRES_USER: zabbix
+      POSTGRES_PASSWORD: zabbixpass
+      POSTGRES_DB: zabbixdb
+    depends_on:
+      - postgres
+
+  zabbix-frontend:
+    image: zabbix/zabbix-web-nginx-pgsql:alpine-6.0-latest
+    ports:
+      - "8080:8080"
+    environment:
+      DB_SERVER_HOST: postgres
+      POSTGRES_USER: zabbix
+      POSTGRES_PASSWORD: zabbixpass
+      POSTGRES_DB: zabbixdb
+      ZBX_SERVER_HOST: zabbix-server
+      PHP_TZ: Europe/Tehran
+    depends_on:
+      - zabbix-server
+
+volumes:
+  pg_data:
