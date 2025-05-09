@@ -21,6 +21,11 @@ MySQL basics (used by Zabbix)
 
 Basic Linux networking & port mapping
 
+after clone this, you can have a full zabbix buy doing this: 😉
+
+        docker compose up -d
+
+
 # ✅ Phase 2: Observability and Reverse Proxy
 ## Goal: Add visibility and secure access
 
