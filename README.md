@@ -9,7 +9,7 @@ For more information please see this article:
 # ✅ Phase 1: Core Foundation – Build and Understand the Stack
 ## Goal: Launch a working Zabbix monitoring system using Docker Compose.
 
-You will learn:
+This part consist of:
 
 Docker Compose (volumes, networks, depends_on, environment)
 
@@ -21,7 +21,7 @@ MySQL basics (used by Zabbix)
 
 Basic Linux networking & port mapping
 
-after clone this, you can have a full zabbix by doing this: 😉
+After clone this, you can have a full Zabbix by doing this: 😉
 
         docker compose up -d
 
@@ -29,7 +29,7 @@ after clone this, you can have a full zabbix by doing this: 😉
 # ✅ Phase 2: Observability and Reverse Proxy
 ## Goal: Add visibility and secure access
 
-You will learn:
+This part consist of:
 
 Zabbix Agent (deployed inside containers or on host)
 
@@ -44,7 +44,7 @@ How to expose services properly (ports, SSL, domains)
 # ✅ Phase 3: Production Readiness & Resilience
 ## Goal: Automate health, backups, and configurations
 
-You will learn:
+This part consist of:
 
 Cron jobs for health checks or DB dumps
 
@@ -59,7 +59,7 @@ Secrets management (.env, volumes, and Docker secrets)
 # ✅ Phase 4: Infrastructure as Code (IaC)
 ## Goal: Automate your entire deployment — from provisioning to services
 
-You will learn:
+This part consist of:
 
 Terraform: Provision cloud VM or local KVM machine
 
@@ -69,8 +69,9 @@ Combine Terraform + Ansible for full automation
 
 Optionally test with Molecule (advanced)
 
-# 🧠 Optional Advanced Enhancements (Phase 5 if you want)
-## If you're progressing fast, we can add:
+# 🧠 Optional Advanced Enhancements 
+
+This part consist of:
 
 Alerting integrations (Slack, Telegram from Zabbix)
 
