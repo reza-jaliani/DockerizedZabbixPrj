@@ -21,7 +21,7 @@ MySQL basics (used by Zabbix)
 
 Basic Linux networking & port mapping
 
-after clone this, you can have a full zabbix buy doing this: 😉
+after clone this, you can have a full zabbix by doing this: 😉
 
         docker compose up -d
 
