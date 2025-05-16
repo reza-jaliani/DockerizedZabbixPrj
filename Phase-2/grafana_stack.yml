@@ -10,11 +10,12 @@ services:
     environment:
       - GF_SECURITY_ADMIN_USER=admin
       - GF_SECURITY_ADMIN_PASSWORD=admin
-      - GF_INSTALL_PLUGINS=alexanderzobnin-zabbix-app
+      - GF_INSTALL_PLUGINS=
       - GF_PATHS_PROVISIONING=/etc/grafana/provisioning
     volumes:
       - grafana_data:/var/lib/grafana
       - ./provisioning:/etc/grafana/provisioning
+      - ./plugins:/var/lib/grafana/plugins
     networks:
       - zabbix-net
 
@@ -24,3 +25,4 @@ volumes:
 networks:
   zabbix-net:
     external: true
+
