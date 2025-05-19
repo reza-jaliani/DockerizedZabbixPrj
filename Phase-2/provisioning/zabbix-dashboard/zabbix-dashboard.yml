@@ -1,0 +1,11 @@
+apiVersion: 1
+
+providers:
+  - name: 'Zabbix - Starter'
+    orgId: 1
+    folder: 'Zabbix'
+    type: file
+    options:
+      path: /etc/grafana/provisioning/zabbix-dashboard
+      recursive: false
+      allowUiUpdates: false
