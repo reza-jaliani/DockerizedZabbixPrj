@@ -4,11 +4,13 @@ datasources:
   - name: Zabbix
     type: alexanderzobnin-zabbix-datasource
     access: proxy
-    url: http://zbx-web:8080
+    url: http://zabbix-frontend:8080/api_jsonrpc.php
+    basicAuth: false
     isDefault: true
-    editable: false           
+    editable: true
     jsonData:
-      username: Admin          
-      trends: true
-    secureJsonData:
+      username: Admin
       password: zabbix
+      trends: true
+      trendsFrom: "7d"
+      cacheTTL: "1h"
