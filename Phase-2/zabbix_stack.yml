@@ -11,6 +11,12 @@ services:
     restart: unless-stopped
     networks:
       - zabbix-net
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U $$POSTGRES_USER"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+      start_period: 20s
 
   zabbix-server:
     image: zabbix/zabbix-server-pgsql:${ZABBIX_VERSION}
@@ -28,6 +34,12 @@ services:
     restart: unless-stopped
     networks:
       - zabbix-net
+    healthcheck:
+      test: ["CMD-SHELL", "zabbix_server -V >/dev/null 2>&1 || exit 1"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 20s
 
   zabbix-web:
     image: zabbix/zabbix-web-nginx-pgsql:${ZABBIX_VERSION}
@@ -46,9 +58,15 @@ services:
     restart: unless-stopped
     networks:
       - zabbix-net
+    healthcheck:
+      test: ["CMD", "curl", "-fs", "http://localhost:8080/"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 30s
 
   zabbix-agent:
-    image: zabbix/zabbix-agent2:alpine-6.4-latest
+    image: zabbix/zabbix-agent2:alpine-7.0-latest
     container_name: zabbix-agent
     environment:
       ZBX_SERVER_HOST: zabbix-server
@@ -62,6 +80,12 @@ services:
     restart: unless-stopped
     networks:
       - zabbix-net
+    healthcheck:
+      test: ["CMD", "zabbix_agent2", "-t", "agent.ping"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 15s
 
 volumes:
   pgdata:
