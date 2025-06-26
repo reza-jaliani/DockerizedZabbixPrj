@@ -1,0 +1,22 @@
+---
+- name: Deploy Zabbix + Grafana Stack
+  hosts: monitoring
+  become: yes
+
+  tasks:
+    - name: Create monitoring directory if not exists
+      file:
+        path: /opt/monitoring
+        state: directory
+        mode: '0755'
+
+    - name: Copy docker-compose.yml to target
+      copy:
+        src: ../files/docker-compose.yml
+        dest: /opt/monitoring/docker-compose.yml
+        mode: '0644'
+
+    - name: Launch monitoring stack
+      command: docker compose up -d
+      args:
+        chdir: /opt/monitoring
