@@ -124,9 +124,3 @@ This project is part of a multi-phase DevOps roadmap aiming to build a productio
 
 > **Phase 3 – Production Readiness & Resilience**  
 > Add backups, health checks, version control, secrets management, and basic CI/CD.
-
----
-
-## License
-
-This project is licensed under the MIT License. See [LICENSE](LICENSE) for details.
