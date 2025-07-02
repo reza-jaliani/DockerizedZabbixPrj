@@ -1,0 +1,4 @@
+---
+# defaults file for roles/monitoring
+monitoring_install_path: /opt/monitoring
+monitoring_compose_file: docker-compose.yml
