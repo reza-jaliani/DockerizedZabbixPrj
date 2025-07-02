@@ -1,0 +1,18 @@
+---
+# tasks file for roles/monitoring
+- name: Create monitoring directory if not exists
+  file:
+    path: "{{ monitoring_install_path }}"
+    state: directory
+    mode: '0755'
+
+- name: Copy docker-compose.yml to target
+  copy:
+    src: docker-compose.yml
+    dest: "{{ monitoring_install_path }}/docker-compose.yml"
+    mode: '0644'
+
+- name: Launch monitoring stack
+  command: docker compose up -d
+  args:
+    chdir: "{{ monitoring_install_path }}"
