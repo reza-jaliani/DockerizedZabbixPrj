@@ -1,16 +1,16 @@
 services:
-  postgres:
-    image: postgres:15
-    container_name: zabbix_postgres
+  {{ db_host }}:
+    image: {{ img_db }}
+    container_name: {{ db_container }}
     environment:
-      POSTGRES_USER: zabbix
-      POSTGRES_PASSWORD: zabbixpass
-      POSTGRES_DB: zabbix
+      POSTGRES_USER: {{ db_user }}
+      POSTGRES_PASSWORD: {{ db_pass }}
+      POSTGRES_DB: {{ db_name }}
     volumes:
       - pgdata:/var/lib/postgresql/data
     restart: unless-stopped
     networks:
-      - zabbix-net
+      - {{ network }}
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -U $$POSTGRES_USER"]
       interval: 30s
@@ -19,21 +19,21 @@ services:
       start_period: 20s
 
   zabbix-server:
-    image: zabbix/zabbix-server-pgsql:alpine-7.0-latest
-    container_name: zabbix-server
+    image: {{ img_zbxsrv }}
+    container_name: {{ zbxsrv_container }}
     environment:
-      DB_SERVER_HOST: postgres
-      POSTGRES_USER: zabbix
-      POSTGRES_PASSWORD: zabbixpass
-      ZBX_SERVER_NAME: Zabbix Docker Monitoring
+      DB_SERVER_HOST: {{ db_host }}
+      POSTGRES_USER: {{ db_user }}
+      POSTGRES_PASSWORD: {{ db_pass }}
+      ZBX_SERVER_NAME: {{ zbxsrv_name }}
     depends_on:
-      - postgres
+      - {{ db_host }}
     ports:
-      - "10051:10051"
-      - "10050:10050"
+      - "{{ zbxsrv_port1 }}:10051"
+      - "{{ zbxsrv_port2 }}:10050"
     restart: unless-stopped
     networks:
-      - zabbix-net
+      - {{ network }}
     healthcheck:
       test: ["CMD-SHELL", "zabbix_server -V >/dev/null 2>&1 || exit 1"]
       interval: 30s
@@ -42,22 +42,22 @@ services:
       start_period: 20s
 
   zabbix-web:
-    image: zabbix/zabbix-web-nginx-pgsql:alpine-7.0-latest
-    container_name: zabbix-frontend
+    image: {{ img_zbxweb }}
+    container_name: {{ zbxweb_container }}
     environment:
-      DB_SERVER_HOST: postgres
-      ZBX_SERVER_HOST: zabbix-server
-      POSTGRES_USER: zabbix
-      POSTGRES_PASSWORD: zabbixpass
-      PHP_TZ: Asia/Tehran
+      DB_SERVER_HOST: {{ db_host }}
+      ZBX_SERVER_HOST: {{ zbxsrv_container }}
+      POSTGRES_USER: {{ db_user }}
+      POSTGRES_PASSWORD: {{ db_pass }}
+      PHP_TZ: {{ zbxweb_tz }}
     depends_on:
-      - postgres
+      - {{ db_host }}
       - zabbix-server
     ports:
-      - "8080:8080"
+      - "{{ zbxweb_port }}:8080"
     restart: unless-stopped
     networks:
-      - zabbix-net
+      - {{ network }}
     healthcheck:
       test: ["CMD", "curl", "-fs", "http://localhost:8080/"]
       interval: 30s
@@ -66,10 +66,10 @@ services:
       start_period: 30s
 
   zabbix-agent:
-    image: zabbix/zabbix-agent2:alpine-7.0-latest
+    image: {{ img_zbxagt }}
     container_name: zabbix-agent
     environment:
-      ZBX_SERVER_HOST: zabbix-server
+      ZBX_SERVER_HOST: {{ zbxsrv_container }}
       ZBX_HOSTNAME: docker-agent
     group_add:
       - 111
@@ -79,7 +79,7 @@ services:
       - zabbix-server
     restart: unless-stopped
     networks:
-      - zabbix-net
+      - {{ network }}
     healthcheck:
       test: ["CMD", "zabbix_agent2", "-t", "agent.ping"]
       interval: 30s
@@ -88,13 +88,13 @@ services:
       start_period: 15s
 
   grafana:
-    image: grafana/grafana:latest
-    container_name: grafana
+    image: {{ img_grf }}
+    container_name: {{ grf_container }}
     restart: unless-stopped
     ports:
-      - "3000:3000"
+      - "{{ grf_port }}:3000"
     networks:
-      - zabbix-net
+      - {{ network }}
     healthcheck:
       test: ["CMD", "curl", "-f", "http://localhost:3000/"]
       interval: 30s
@@ -102,10 +102,9 @@ services:
       retries: 3
       start_period: 30s
 
-
 volumes:
   pgdata:
 
 networks:
-  zabbix-net:
+  {{ network }}:
     external: true
