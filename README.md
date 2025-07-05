@@ -98,6 +98,6 @@ If this phase-based structure helps you or you have ideas to improve it, feel fr
 ---
 
 **Reza Jaliani**  
-Networking → Monitoring → DevOps 🚀  
+Networking → Monitoring → DevOps
 
 _Last updated: includes Ansible and upcoming IaC strategies._
