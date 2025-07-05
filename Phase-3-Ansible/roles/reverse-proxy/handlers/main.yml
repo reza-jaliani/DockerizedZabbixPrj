@@ -1,2 +1,9 @@
 ---
 # handlers file for roles/reverse-proxy
+
+---
+- name: Reload nginx
+  service:
+    name: nginx
+    state: reloaded
+
