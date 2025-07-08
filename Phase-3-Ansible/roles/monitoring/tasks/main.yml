@@ -1,5 +1,4 @@
 ---
----
 - name: Create monitoring directory
   file:
     path: "{{ monitoring_install_path }}"
