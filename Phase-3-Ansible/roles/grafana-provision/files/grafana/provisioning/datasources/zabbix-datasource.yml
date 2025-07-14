@@ -1,0 +1,13 @@
+apiVersion: 1
+
+datasources:
+  - name: Zabbix
+    type: alexanderzobnin-zabbix-datasource
+    access: proxy
+    url: http://zabbix-frontend:8080
+    isDefault: true
+    jsonData:
+      username: Admin
+    secureJsonData:
+      password: zabbix
+

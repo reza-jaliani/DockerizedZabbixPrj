@@ -1,9 +1,10 @@
 ---
-- name: Deploy Zabbix + Grafana Stack using Role + NGINX 
+- name: Deploy Zabbix + Grafana Stack using Role + NGINX + grafana provisioning
   hosts: monitoring
   become: yes
 
   roles:
     - monitoring
     - reverse-proxy
+    - grafana-provision
 

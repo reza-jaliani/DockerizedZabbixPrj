@@ -1,0 +1,25 @@
+---
+- name: Create provisioning directories
+  file:
+    path: "{{ item }}"
+    state: directory
+    recurse: yes
+  loop:
+    - "{{ playbook_dir }}/files/grafana/provisioning/datasources"
+    - "{{ playbook_dir }}/files/grafana/provisioning/dashboards"
+
+- name: Copy datasource config to provisioning directory
+  copy:
+    src: grafana/provisioning/datasources/zabbix-datasource.yml
+    dest: "{{ playbook_dir }}/files/grafana/provisioning/datasources/zabbix-datasource.yml"
+
+- name: Copy dashboard JSON to provisioning directory
+  copy:
+    src: grafana/provisioning/dashboards/zabbix-dashboard.json
+    dest: "{{ playbook_dir }}/files/grafana/provisioning/dashboards/zabbix-dashboard.json"
+
+- name: Copy dashboard provider config (dashboard.yml)
+  copy:
+    src: grafana/provisioning/dashboard.yml
+    dest: "{{ playbook_dir }}/files/grafana/provisioning/dashboard.yml"
+
