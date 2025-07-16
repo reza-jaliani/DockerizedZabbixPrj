@@ -96,7 +96,7 @@ services:
     volumes:
       - ./files/grafana/provisioning/datasources:/etc/grafana/provisioning/datasources
       - ./files/grafana/provisioning/dashboards:/etc/grafana/provisioning/dashboards
-      - ./files/grafana/provisioning/dashboard.yml:/etc/grafana/provisioning/dashboard.yml
+      - ./files/grafana/provisioning/dashboard.yml/dashboard.yml:/etc/grafana/provisioning/dashboard.yml
     environment:
       - GF_SECURITY_ADMIN_USER=admin
       - GF_SECURITY_ADMIN_PASSWORD=grafana
