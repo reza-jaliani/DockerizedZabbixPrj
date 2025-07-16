@@ -1,7 +1,0 @@
----
-# handlers file for roles/monitoring
-- name: restart monitoring stack
-  command: docker compose up -d
-  args:
-    chdir: "{{ monitoring_install_path }}"
-
