@@ -2,7 +2,7 @@
 
 **Repository:** `Phase-3-Ansible`  
 **Author:** [Reza Jaliani](https://github.com/reza-jaliani)  
-**Purpose:** Fully automated deployment of a Dockerized Zabbix + Grafana monitoring stack with NGINX reverse proxy using Ansible.
+**Purpose:** Fully automated deployment of a Dockerized Zabbix + Grafana monitoring stack with NGINX reverse proxy using Ansible and Docker compose.
 
 ---
 
