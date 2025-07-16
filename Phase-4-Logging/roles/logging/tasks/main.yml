@@ -1,0 +1,18 @@
+---
+# tasks file for logging
+- name: Create logging directory
+  file:
+    path: "{{ logging_compose_path }}"
+    state: directory
+    mode: '0755'
+
+- name: Deploy docker-compose for logging
+  template:
+    src: "{{ logging_compose_template }}"
+    dest: "{{ logging_compose_path }}/docker-compose.yml"
+
+- name: Start logging stack with Docker Compose
+  community.docker.docker_compose:
+    project_src: "{{ logging_compose_path }}"
+    state: present
+

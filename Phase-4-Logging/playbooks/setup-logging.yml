@@ -1,0 +1,7 @@
+- name: Setup Centralized Logging
+  hosts: all
+  become: true
+
+  roles:
+    - logging
+

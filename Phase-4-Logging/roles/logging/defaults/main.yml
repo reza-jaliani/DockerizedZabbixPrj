@@ -1,0 +1,6 @@
+---
+# defaults file for logging
+logging_network_name: logging_net
+logging_compose_path: /opt/logging
+logging_compose_template: docker-compose.logging.yml.j2
+
